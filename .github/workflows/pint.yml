@@ -1,0 +1,16 @@
+name: Fix PHP code style issues
+
+on: [push]
+
+jobs:
+   pint:
+      runs-on: ubuntu-latest
+      
+      steps:
+         -  name: Checkout code
+            uses: actions/checkout@v3
+            with:
+               ref: ${{ github.head_ref }}
+         
+         -  name: Laravel Pint checks
+            run: vendor/bin/pint --test
