@@ -1,36 +1,34 @@
 <?php
 
-namespace VendorName\Skeleton\Tests;
+namespace Brickx\Calendax\Tests;
 
+use Brickx\Calendax\CalendaxServiceProvider;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Livewire\LivewireServiceProvider;
 use Orchestra\Testbench\TestCase as Orchestra;
-use VendorName\Skeleton\SkeletonServiceProvider;
 
+// TODO: Checkout https://pestphp.com/docs/plugins/livewire and modify tests accordingly
 class TestCase extends Orchestra
 {
-    protected function setUp(): void
-    {
-        parent::setUp();
+	protected function setUp() : void
+	{
+		parent::setUp();
 
-        Factory::guessFactoryNamesUsing(
-            fn (string $modelName) => 'VendorName\\Skeleton\\Database\\Factories\\'.class_basename($modelName).'Factory'
-        );
-    }
+		Factory::guessFactoryNamesUsing(
+			fn (string $modelName) => 'Brickx\\Calendax\\Database\\Factories\\'.class_basename($modelName).'Factory'
+		);
+	}
 
-    protected function getPackageProviders($app)
-    {
-        return [
-            SkeletonServiceProvider::class,
-        ];
-    }
+	protected function getPackageProviders($app) : array
+	{
+		return [
+			LivewireServiceProvider::class,
+			CalendaxServiceProvider::class,
+		];
+	}
 
-    public function getEnvironmentSetUp($app)
-    {
-        config()->set('database.default', 'testing');
-
-        /*
-        $migration = include __DIR__.'/../database/migrations/create_skeleton_table.php.stub';
-        $migration->up();
-        */
-    }
+	protected function getEnvironmentSetUp($app)
+	{
+		config()->set('app.key', 'base64:VQ1rFQmlFsEtWng7pMojG25a/sjFmYlqS7WhCfPr4HY=');
+	}
 }
