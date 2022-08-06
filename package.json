@@ -1,0 +1,43 @@
+{
+	"name": "brickx-calendax",
+	"version": "1.0.0",
+	"description": "Livewire calendar for Laravel",
+	"contributors": [
+		{
+			"name": "Florian PLAMONT",
+			"email": "postmaster@brickx.fr",
+			"url": "https://florian-plamont.fr"
+		}
+	],
+	"private": true,
+	"devDependencies": {
+		"@shufo/prettier-plugin-blade": "^1.4.16",
+		"@tailwindcss/forms": "^0.5.2",
+		"@tailwindcss/typography": "^0.5.2",
+		"alpinejs": "^3.10.2",
+		"autoprefixer": "^10.4.7",
+		"laravel-vite-plugin": "^0.2.4",
+		"postcss": "^8.4.14",
+		"prettier": "^2.7.1",
+		"sass": "^1.53.0",
+		"tailwindcss": "^3.1.4",
+		"typescript": "^4.7.4",
+		"vite": "^2.9.13"
+	},
+	"browserslist": {
+		"production": [
+			"last 2 versions",
+			"> 0.2%",
+			"IE 10"
+		],
+		"development": [
+			"last 1 chrome version",
+			"last 1 firefox version",
+			"last 1 safari version"
+		]
+	},
+	"scripts": {
+		"dev": "vite",
+		"build": "vite build"
+	}
+}
