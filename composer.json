@@ -39,9 +39,9 @@
 	},
 	"scripts": {
 		"test": "vendor/bin/pest",
-		"test-coverage": "vendor/bin/pest --coverage",
-		"test-parallel": "vendor/bin/pest --parallel",
-		"test-parallel-coverage": "vendor/bin/pest --parallel --coverage",
+		"test:coverage": "vendor/bin/pest --coverage",
+		"test:parallel": "vendor/bin/pest --parallel",
+		"test:parallel-coverage": "vendor/bin/pest --parallel --coverage",
 		"format": "vendor/bin/pint"
 	},
 	"config": {

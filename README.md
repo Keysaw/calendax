@@ -1,77 +1,326 @@
+TODO
+
+Add navigation (ideally a calendar picker like in Filament)
 
 [<img src="https://github-ads.s3.eu-central-1.amazonaws.com/support-ukraine.svg?t=1" />](https://supportukrainenow.org)
 
-# :package_description
+# Livewire calendar for Laravel
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/:vendor_slug/:package_slug.svg?style=flat-square)](https://packagist.org/packages/:vendor_slug/:package_slug)
-[![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/:vendor_slug/:package_slug/run-tests?label=tests)](https://github.com/:vendor_slug/:package_slug/actions?query=workflow%3Arun-tests+branch%3Amain)
-[![GitHub Code Style Action Status](https://img.shields.io/github/workflow/status/:vendor_slug/:package_slug/Fix%20PHP%20code%20style%20issues?label=code%20style)](https://github.com/:vendor_slug/:package_slug/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amain)
-[![Total Downloads](https://img.shields.io/packagist/dt/:vendor_slug/:package_slug.svg?style=flat-square)](https://packagist.org/packages/:vendor_slug/:package_slug)
-<!--delete-->
----
-This repo can be used to scaffold a Laravel package. Follow these steps to get started:
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/keysaw/calendax.svg?style=flat-square)](https://packagist.org/packages/keysaw/calendax)
+[![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/keysaw/calendax/run-tests?label=tests)](https://github.com/keysaw/calendax/actions?query=workflow%3Arun-tests+branch%3Amain)
+[![GitHub Code Style Action Status](https://img.shields.io/github/workflow/status/keysaw/calendax/Fix%20PHP%20code%20style%20issues?label=code%20style)](https://github.com/keysaw/calendax/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amain)
+[![Total Downloads](https://img.shields.io/packagist/dt/keysaw/calendax.svg?style=flat-square)](https://packagist.org/packages/keysaw/calendax)
 
-1. Press the "Use this template" button at the top of this repo to create a new repo with the contents of this skeleton.
-2. Run "php ./configure.php" to run a script that will replace all placeholders throughout all the files.
-3. Have fun creating your package.
-4. If you need help creating a package, consider picking up our <a href="https://laravelpackage.training">Laravel Package Training</a> video course.
----
-<!--/delete-->
-This is where your description should go. Limit it to a paragraph or two. Consider adding a small example.
+This package allows you to build a Livewire calendar, filled with events of any kind. Events can be created from any model or dataset.
 
-## Support us
+It is heavily inspired by Andrés Santibáñez's [Livewire Calendar](https://github.com/asantibanez/livewire-calendar).
 
-[<img src="https://github-ads.s3.eu-central-1.amazonaws.com/:package_name.jpg?t=1" width="419px" />](https://spatie.be/github-ad-click/:package_name)
+## Preview
 
-We invest a lot of resources into creating [best in class open source packages](https://spatie.be/open-source). You can support us by [buying one of our paid products](https://spatie.be/open-source/support-us).
-
-We highly appreciate you sending us a postcard from your hometown, mentioning which of our package(s) you are using. You'll find our address on [our contact page](https://spatie.be/about-us). We publish all received postcards on [our virtual postcard wall](https://spatie.be/open-source/postcards).
+![preview](https://github.com/Keysaw/calendax/raw/master/preview.gif)
 
 ## Installation
 
 You can install the package via composer:
 
 ```bash
-composer require :vendor_slug/:package_slug
+composer require brickx/calendax
 ```
 
 You can publish and run the migrations with:
 
 ```bash
-php artisan vendor:publish --tag=":package_slug-migrations"
+php artisan vendor:publish --tag="calendax-migrations"
 php artisan migrate
 ```
 
 You can publish the config file with:
 
 ```bash
-php artisan vendor:publish --tag=":package_slug-config"
+php artisan vendor:publish --tag="calendax-config"
 ```
 
 This is the contents of the published config file:
 
 ```php
 return [
+
 ];
 ```
 
 Optionally, you can publish the views using
 
 ```bash
-php artisan vendor:publish --tag=":package_slug-views"
+php artisan vendor:publish --tag="calendax-views"
 ```
+
+## Requirements
+
+This package uses `livewire/livewire` (https://laravel-livewire.com) under the hood.
+
+It also uses TailwindCSS (https://tailwindcss.com) for styling. Please make sure you include both of these dependencies before using this component.
 
 ## Usage
 
-```php
-$variable = new VendorName\Skeleton();
-echo $variable->echoPhrase('Hello, VendorName!');
+### Initialization
+
+First, create a new Livewire component that extends `Calendax`.
+
+You can use `make:livewire` to create this component. For example:
+
+```bash
+php artisan make:livewire MyCalendar
 ```
+
+Then, in the created `MyCalendar` class, extend `Calendax` instead of extending from the base `Component` Livewire class:
+
+```php
+class AppointmentsCalendar extends \Brickx\Calendax\Calendax
+{
+    //
+}
+```
+
+In this class, you must override the following method in order to implement custom logic for loading events:
+
+```php
+public function events() : Collection
+{
+    // Return a Laravel collection
+}
+```
+
+Also remove the `render` method, as it will be handled for you.
+
+In the `events()` method, you should return a collection containing the events that should be displayed on the calendar.
+
+### Loading events (using arrays)
+
+Events must be keyed arrays holding at least the following keys: `id`, `title`, `description`, `date` (which must be a `Carbon\Carbon` instance).
+
+```php
+public function events() : Collection
+{
+    return collect([
+        [
+            'id' => 1,
+            'title' => 'Breakfast',
+            'description' => 'Pancakes! 🥞',
+            'date' => Carbon::today(),
+        ],
+        [
+            'id' => 2,
+            'title' => 'Meeting with Camille',
+            'description' => 'Random chit-chat.',
+            'date' => Carbon::tomorrow(),
+        ],
+    ]);
+}
+```
+
+The `date` value will be used to determine to which day the event will be displayed.
+
+### Loading events (using Eloquent query)
+
+You can also load values dynamically in the `events()` method. You can use the following component properties to filter your events:
+
+- `startsAt`: starting date of the month
+- `endsAt`: ending date of the month
+- `gridStartsAt`: starting date of calendar grid (can be a date from the previous month).
+- `endingStartsAt`: ending date of calendar grid (can be a date from the previous month).
+
+```php
+public function events(): Collection
+{
+    return Model::query()
+        ->whereDate('scheduled_at', '>=', $this->gridStartsAt)
+        ->whereDate('scheduled_at', '<=', $this->gridEndsAt)
+        ->get()
+        ->map(function (Model $model) {
+            return [
+                'id' => $model->id,
+                'title' => $model->title,
+                'description' => $model->notes,
+                'date' => $model->scheduled_at,
+            ];
+        });
+}
+```
+
+### Rendering the calendar
+
+Now you can include your calendar in any view using Blade components:
+
+```html
+
+<livewire:my-calendar />
+```
+
+This will render a calendar grid.
+
+![example](https://github.com/Keysaw/calendax/raw/master/example.png)
+
+### Choosing the starting month
+
+By default, the component will render the current month. If you want to change the
+starting month, you can set the `year` and `month` props.
+
+```html
+
+<livewire:my-calendar year='2016' month='06' />
+```
+
+### Enabling drag & drop
+
+To enable drag & drop, include `@calendaxScripts` after your `@livewireScripts` directive.
+
+```html
+@livewireScripts
+@livewireCalendarScripts
+```
+
+### Handling navigation
+
+The component has 4 public methods used to navigate between months:
+
+```php
+public function goToPreviousMonth()
+public function goToCurrentMonth()
+public function goToNextMonth()
+public function goToMonth($month, $year = null)
+```
+
+For example, these methods can be used to build a navigation system using additional views. Check out below section for example usage.
+
+## Advanced usage
+
+### Blade customization
+
+When rendering your Blade component, several additional attributes are available to customize the behavior of your calendar:
+
+- `week-starts-at` to indicate the starting day of the week. It can be a number from 0 to 6 according to `Carbon` days of week (0 = sunday).
+
+
+- `drag-and-drop-classes` can be any CSS class used to render the hover effect when dragging & dropping an event in the calendar. By default, this value
+  is `border border-4 border-blue-400`.
+
+```html
+
+<livewire:my-calendar week-starts-at='1' drag-and-drop-classes='bg-orange-500' />
+```
+
+### Custom views
+
+You can also use custom Blade views to render different parts of the calendar.
+
+It is recommended to publish the base Blade views used by the component and extend their behavior and styling to your liking. To do this, please checkout
+the [Installation](#installation) section.
+
+Those views can be specified using the following attributes:
+
+- `calendar-view` used to render the whole component. Please check out the package's `calendar.blade.php` view to know which attributes are available.
+
+
+- `day-of-week-view` used to render each column header of the calendar (typically containing days of week). This view will receive the `$day`property, which is a `Carbon`
+  instance of the associated day of the week.
+
+
+- `day-view` used to render each day of the month. This view will receive the following attributes:
+	- `componentId` (the id of the Livewire component)
+	- `day` (the day of the month as a `Carbon` instance)
+	- `dayInMonth` (boolean indicating if the day is part of the current month or not)
+	- `isToday` (boolean indicating if the day is today)
+	- `events` (events collection that corresponds to the day)
+
+
+- `event-view` used to render the event card. This view will receive an `$event` variable containing its data.
+
+
+- `before-calendar-view` and `after-calendar-view` can be any Blade views that will be rendered before or after the calendar itself. These can be used to add extra features (
+  e.g. navigation system) to your component.
+
+```html
+
+<livewire:my-calendar
+	calendar-view='path/to/view/calendar.blade.php'
+	day-of-week-view='path/to/view/dow.blade.php'
+	day-view='path/to/view/day.blade.php'
+	event-view='path/to/view/event.blade.php'
+	before-calendar-view='path/to/view/before-calendar.blade.php'
+	after-calendar-view='path/to/view/after-calendar.blade.php'
+/>
+```
+
+All custom views paths must be relative to the `resources/views` directory.
+
+### Interactivity
+
+Several methods are available to interact with the calendar:
+
+```php
+public function onDayClick($year, $month, $day)
+{
+	// This event is triggered when a day is clicked
+}
+
+public function onEventClick($eventId)
+{
+	// This event is triggered when an event card is clicked
+}
+
+public function onEventDropped($eventId, $year, $month, $day)
+{
+	// This event is triggered when an event is dragged & dropped onto another calendar day
+}
+```
+
+You can override any of them to implement your custom logic.
+
+By default, click and drag & drop events are enabled. To disable them you can use the following attributes when rendering the component
+
+```html
+
+<livewire:my-calendar
+	:day-click-enabled='false'
+	:event-click-enabled='false'
+	:drag-and-drop-enabled='false'
+/>
+```
+
+### Automatic polling
+
+You can add automatic polling if need be by defining a `$pollMillis` property in the Livewire component.
+
+You can also combine it with `$pollAction` in order to call a specific action in your component at the desired polling interval.
+
+To learn more about polling, please check out https://laravel-livewire.com/docs/2.x/polling.
 
 ## Testing
 
+You can test the component using `Pest` by running the following commands, depending on your needs.
+
+_Standard test:_
+
 ```bash
 composer test
+```
+
+_With coverage:_
+
+```bash
+composer test:coverage
+```
+
+_Parallel test:_
+
+```bash
+composer test:parallel
+```
+
+_Parallel test with coverage:_
+
+```bash
+composer test:parallel-coverage
 ```
 
 ## Changelog
@@ -80,16 +329,17 @@ Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed re
 
 ## Contributing
 
-Please see [CONTRIBUTING](https://github.com/:author_username/.github/blob/main/CONTRIBUTING.md) for details.
+Please see [CONTRIBUTING](https://github.com/Keysaw/.github/blob/main/CONTRIBUTING.md) for details.
 
 ## Security Vulnerabilities
 
-Please review [our security policy](../../security/policy) on how to report security vulnerabilities.
+Please review [our security policy](https://github.com/Keysaw/calendax/security/policy) on how to report security vulnerabilities.
 
 ## Credits
 
-- [:author_name](https://github.com/:author_username)
-- [All Contributors](../../contributors)
+- [Florian PLAMONT](https://github.com/Keysaw)
+- [Andrés Santibáñez](https://github.com/asantibanez)
+- [All Contributors](https://github.com/Keysaw/calendax/graphs/contributors)
 
 ## License
 
