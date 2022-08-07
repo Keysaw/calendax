@@ -202,14 +202,14 @@ For example, these methods can be used to build a navigation system using additi
 
 When rendering your Blade component, several additional attributes are available to customize the behavior of your calendar:
 
-- `week-starts-at` to indicate the starting day of the week. It can be a number from 0 to 6 according to `Carbon` days of week (0 = sunday).
+- `week-start` to indicate the starting day of the week. It can be a number from 0 to 6 according to `Carbon` days of week (0 = sunday).
 
 
 - `drag-and-drop-classes` can be any CSS class used to render the hover effect when dragging & dropping an event in the calendar. By default, this value
   is `border border-4 border-blue-400`.
 
 ```blade
-<livewire:my-calendar week-starts-at='1' drag-and-drop-classes='bg-orange-500' />
+<livewire:my-calendar week-start=1 drag-and-drop-classes='bg-orange-500' />
 ```
 
 ### Custom views
@@ -224,7 +224,7 @@ Those views can be specified using the following attributes:
 - `calendar-view` used to render the whole component. Please check out the package's `calendar.blade.php` view to know which attributes are available.
 
 
-- `day-of-week-view` used to render each column header of the calendar (typically containing days of week). This view will receive the `$day`property, which is a `Carbon`
+- `dow-view` used to render each column header of the calendar (typically containing days of week). This view will receive the `$day`property, which is a `Carbon`
   instance of the associated day of the week.
 
 
@@ -245,7 +245,7 @@ Those views can be specified using the following attributes:
 ```blade
 <livewire:my-calendar
 	calendar-view='path/to/view/calendar.blade.php'
-	day-of-week-view='path/to/view/dow.blade.php'
+	dow-view='path/to/view/dow.blade.php'
 	day-view='path/to/view/day.blade.php'
 	event-view='path/to/view/event.blade.php'
 	before-calendar-view='path/to/view/before-calendar.blade.php'
