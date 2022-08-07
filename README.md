@@ -1,8 +1,8 @@
 # Livewire calendar for Laravel
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/keysaw/calendax.svg?style=flat-square)](https://packagist.org/packages/keysaw/calendax)
-[![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/keysaw/calendax/run-tests?label=tests)](https://github.com/keysaw/calendax/actions?query=workflow%3Arun-tests+branch%3Amain)
-[![GitHub Code Style Action Status](https://img.shields.io/github/workflow/status/keysaw/calendax/Fix%20PHP%20code%20style%20issues?label=code%20style)](https://github.com/keysaw/calendax/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amain)
+[![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/keysaw/calendax/run-tests?label=Tests)](https://github.com/keysaw/calendax/actions?query=workflow%3Arun-tests+branch%3Amain)
+[![GitHub Code Style Action Status](https://img.shields.io/github/workflow/status/keysaw/calendax/Pint?label=code%20style)](https://github.com/keysaw/calendax/actions?query=workflow%3A"Pint"+branch%3Amain)
 [![Total Downloads](https://img.shields.io/packagist/dt/keysaw/calendax.svg?style=flat-square)](https://packagist.org/packages/keysaw/calendax)
 
 This package allows you to build a Livewire calendar, filled with events of any kind. Events can be created from any model or dataset.
@@ -38,13 +38,6 @@ You can install the package via composer:
 
 ```bash
 composer require brickx/calendax
-```
-
-You can publish and run the migrations with:
-
-```bash
-php artisan vendor:publish --tag="calendax-migrations"
-php artisan migrate
 ```
 
 You can publish the config file with:
@@ -223,7 +216,7 @@ When rendering your Blade component, several additional attributes are available
 
 You can also use custom Blade views to render different parts of the calendar.
 
-It is recommended to publish the base Blade views used by the component and extend their behavior and styling to your liking. To do this, please checkout
+It is recommended to publish the base Blade views used by the component and extend their behavior and styling to your liking. To do this, please check out
 the [Installation](#installation) section.
 
 Those views can be specified using the following attributes:
@@ -334,6 +327,7 @@ composer test:parallel-coverage
 ## Todo
 
 - [ ] Add default navigation, ideally using a dynamic calendar picker (instead of basic `<select>`).
+- [ ] Handle Shields properly in README.md. Check out: https://shields.io/.
 
 ## Changelog
 

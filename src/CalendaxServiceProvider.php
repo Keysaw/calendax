@@ -13,7 +13,6 @@ class CalendaxServiceProvider extends PackageServiceProvider
 		$package->name('calendax')
 			->hasConfigFile()
 			->hasViews()
-			->hasMigration('create_calendax_table')
 			->hasCommand(CalendaxCommand::class);
 	}
 }
