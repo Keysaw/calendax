@@ -1,9 +1,3 @@
-TODO
-
-Add navigation (ideally a calendar picker like in Filament)
-
-[<img src="https://github-ads.s3.eu-central-1.amazonaws.com/support-ukraine.svg?t=1" />](https://supportukrainenow.org)
-
 # Livewire calendar for Laravel
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/keysaw/calendax.svg?style=flat-square)](https://packagist.org/packages/keysaw/calendax)
@@ -18,6 +12,25 @@ It is heavily inspired by Andrés Santibáñez's [Livewire Calendar](https://git
 ## Preview
 
 ![preview](https://github.com/Keysaw/calendax/raw/master/preview.gif)
+
+## Table of contents
+
+* [Installation](#installation)
+* [Requirements](#requirements)
+* [Usage](#usage)
+	* [Initialization](#initialization)
+	* [Loading events (using arrays)](#loading-events-using-arrays)
+	* [Loading events (using Eloquent query)](#loading-events-using-eloquent-query)
+	* [Rendering the calendar](#rendering-the-calendar)
+	* [Choosing the starting month](#choosing-the-starting-month)
+	* [Enabling drag & drop](#enabling-drag--drop)
+	* [Handling navigation](#handling-navigation)
+* [Advanced usage](#advanced-usage)
+	* [Blade customization](#blade-customization)
+	* [Custom views](#custom-views)
+	* [Interactivity](#interactivity)
+	* [Automatic polling](#automatic-polling)
+* [Testing](#testing)
 
 ## Installation
 
@@ -75,7 +88,7 @@ php artisan make:livewire MyCalendar
 Then, in the created `MyCalendar` class, extend `Calendax` instead of extending from the base `Component` Livewire class:
 
 ```php
-class AppointmentsCalendar extends \Brickx\Calendax\Calendax
+class MyCalendar extends \Brickx\Calendax\Calendax
 {
     //
 }
@@ -151,8 +164,7 @@ public function events(): Collection
 
 Now you can include your calendar in any view using Blade components:
 
-```html
-
+```blade
 <livewire:my-calendar />
 ```
 
@@ -165,8 +177,7 @@ This will render a calendar grid.
 By default, the component will render the current month. If you want to change the
 starting month, you can set the `year` and `month` props.
 
-```html
-
+```blade
 <livewire:my-calendar year='2016' month='06' />
 ```
 
@@ -174,7 +185,7 @@ starting month, you can set the `year` and `month` props.
 
 To enable drag & drop, include `@calendaxScripts` after your `@livewireScripts` directive.
 
-```html
+```blade
 @livewireScripts
 @livewireCalendarScripts
 ```
@@ -204,8 +215,7 @@ When rendering your Blade component, several additional attributes are available
 - `drag-and-drop-classes` can be any CSS class used to render the hover effect when dragging & dropping an event in the calendar. By default, this value
   is `border border-4 border-blue-400`.
 
-```html
-
+```blade
 <livewire:my-calendar week-starts-at='1' drag-and-drop-classes='bg-orange-500' />
 ```
 
@@ -239,8 +249,7 @@ Those views can be specified using the following attributes:
 - `before-calendar-view` and `after-calendar-view` can be any Blade views that will be rendered before or after the calendar itself. These can be used to add extra features (
   e.g. navigation system) to your component.
 
-```html
-
+```blade
 <livewire:my-calendar
 	calendar-view='path/to/view/calendar.blade.php'
 	day-of-week-view='path/to/view/dow.blade.php'
@@ -278,8 +287,7 @@ You can override any of them to implement your custom logic.
 
 By default, click and drag & drop events are enabled. To disable them you can use the following attributes when rendering the component
 
-```html
-
+```blade
 <livewire:my-calendar
 	:day-click-enabled='false'
 	:event-click-enabled='false'
@@ -322,6 +330,10 @@ _Parallel test with coverage:_
 ```bash
 composer test:parallel-coverage
 ```
+
+## Todo
+
+- [ ] Add default navigation, ideally using a dynamic calendar picker (instead of basic `<select>`).
 
 ## Changelog
 
