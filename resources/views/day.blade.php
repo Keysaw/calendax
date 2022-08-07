@@ -1,7 +1,7 @@
 <div class='h-40 min-w-[10rem] flex-1 border-b border-inherit lg:h-48 [&:not(:first-of-type)]:border-l'
-	ondragenter="onLivewireCalendarEventDragEnter(event, '{{ $componentId }}', '{{ $day }}', '{{ $dragAndDropClasses }}');"
-	ondragleave="onLivewireCalendarEventDragLeave(event, '{{ $componentId }}', '{{ $day }}', '{{ $dragAndDropClasses }}');" ondragover="onLivewireCalendarEventDragOver(event);"
-	ondrop="onLivewireCalendarEventDrop(event, '{{ $componentId }}', '{{ $day }}', {{ $day->year }}, {{ $day->month }}, {{ $day->day }}, '{{ $dragAndDropClasses }}');">
+	ondragenter="onCalendaxEventDragEnter(event, '{{ $componentId }}', '{{ $day }}', '{{ $dragAndDropClasses }}');"
+	ondragleave="onCalendaxEventDragLeave(event, '{{ $componentId }}', '{{ $day }}', '{{ $dragAndDropClasses }}');" ondragover="onCalendaxEventDragOver(event);"
+	ondrop="onCalendaxEventDrop(event, '{{ $componentId }}', '{{ $day }}', {{ $day->year }}, {{ $day->month }}, {{ $day->day }}, '{{ $dragAndDropClasses }}');">
 
 	<div id='{{ $componentId }}-{{ $day }}' class='h-full w-full'>
 		<div @class([
@@ -32,7 +32,7 @@
 			<div class='flex-1 overflow-y-auto p-2'>
 				<div class='grid grid-flow-row grid-cols-1 gap-2'>
 					@foreach ($events as $event)
-						<div @if ($dragAndDropEnabled) draggable='true' @endif ondragstart="onLivewireCalendarEventDragStart(event, '{{ $event['id'] }}')">
+						<div @if ($dragAndDropEnabled) draggable='true' @endif ondragstart="onCalendaxEventDragStart(event, '{{ $event['id'] }}')">
 							@include($eventView, ['event' => $event])
 						</div>
 					@endforeach
