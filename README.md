@@ -1,6 +1,6 @@
 # Livewire calendar for Laravel
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/keysaw/calendax.svg?style=flat-square)](https://packagist.org/packages/keysaw/calendax)
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/keysaw/calendax.svg?style=flat-square)](https://packagist.org/packages/brickx/calendax)
 [![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/keysaw/calendax/run-tests?label=Tests)](https://github.com/keysaw/calendax/actions?query=workflow%3Arun-tests+branch%3Amain)
 [![GitHub Code Style Action Status](https://img.shields.io/github/workflow/status/keysaw/calendax/Pint?label=code%20style)](https://github.com/keysaw/calendax/actions?query=workflow%3A"Pint"+branch%3Amain)
 [![Total Downloads](https://img.shields.io/packagist/dt/keysaw/calendax.svg?style=flat-square)](https://packagist.org/packages/keysaw/calendax)
