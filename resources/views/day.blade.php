@@ -7,7 +7,7 @@
 		<div @class([
 		    'flex h-full w-full flex-col p-2',
 		    'bg-white' => $dayInMonth && !$isToday,
-		    'bg-yellow-100' => $dayInMonth && $isToday,
+		    'bg-indigo-50' => $dayInMonth && $isToday,
 		    'bg-gray-100' => !$dayInMonth,
 		]) @if ($dayClickEnabled)
 			wire:click="onDayClick({{ $day->year }}, {{ $day->month }}, {{ $day->day }})"
@@ -16,13 +16,13 @@
 			<div class='flex items-center gap-4'>
 				<p @class([
 				    'my-0 flex h-6 w-6 flex-col items-center justify-center rounded-full p-3.5 text-sm',
-				    'bg-yellow-300 text-white' => $isToday,
+				    'bg-teal-400 text-white' => $isToday,
 				    'font-medium' => $dayInMonth,
 				])>
 					{{ $day->format('j') }}
 				</p>
 
-				<p class='my-0 text-xs text-gray-600'>
+				<p class='my-0 text-xs'>
 					@if ($events->isNotEmpty())
 						{{ $events->count() }} {{ Str::plural('évènement', $events->count()) }}
 					@endif
