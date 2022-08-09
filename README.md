@@ -326,8 +326,11 @@ composer test:parallel-coverage
 
 ## Todo
 
-- [ ] Add default navigation, ideally using a dynamic calendar picker (instead of basic `<select>`).
+- [ ] Update README.md for how to properly setup Flatpickr component
+- [ ] Create tests for Flatpickr component
+- [ ] Find a way to highlight events in Flatpickr component (so that users see immediately which days have events).
 - [ ] Handle Shields properly in README.md. Check out: https://shields.io/.
+- [X] ~~Add default navigation, ideally using a dynamic calendar picker (instead of basic `<select>`).~~
 
 ## Changelog
 
