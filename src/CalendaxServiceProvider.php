@@ -21,6 +21,8 @@ class CalendaxServiceProvider extends PackageServiceProvider
 
 	public function bootingPackage()
 	{
+		Blade::componentNamespace('Brickx\\Calendax\\Components', 'calendax');
+
 		Blade::directive('calendaxScripts', function () {
 			return <<<'HTML'
             <script>
