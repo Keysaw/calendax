@@ -1,6 +1,6 @@
 <?php
 
-namespace Brickx\Calendax\View\Components;
+namespace Brickx\Calendax\Components;
 
 use Exception;
 use Illuminate\Contracts\View\View;
