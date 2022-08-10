@@ -1,6 +1,8 @@
 import flatpickr from 'flatpickr';
 import { French } from 'flatpickr/dist/l10n/fr';
 
+// TOFIX: This should be improved -> we should export a global 'calendax' variable that will hold our logic (e.g. users will only add something like 'calendax.init()' to their main script and everything should work fine)
+// TODO: Dig into that to simplify the code. Maybe even find a way for the users to avoid importing this script, and putting it directly inside Blade?
 export function calendax() {
 	window.Flatpickr = {
 		__supportedEventNames: ['onChange', 'onOpen', 'onClose', 'onMonthChange', 'onYearChange', 'onReady', 'onValueUpdate', 'onDayCreate'],

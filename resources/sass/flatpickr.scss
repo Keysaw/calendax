@@ -237,7 +237,7 @@ $color-range: theme('colors.emerald.50') !default;
 
 	.flatpickr-prev-month:hover svg,
 	.flatpickr-next-month:hover svg {
-		fill: #f64747;
+		opacity: 0.5;
 	}
 
 	.flatpickr-prev-month svg,
