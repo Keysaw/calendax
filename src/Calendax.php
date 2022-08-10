@@ -19,6 +19,7 @@ class Calendax extends Component
 	public Carbon $gridStartsAt;
 	public Carbon $gridEndsAt;
 	public ?string $calendarView;
+	public ?string $navView;
 	public ?string $dowView;
 	public ?string $dayView;
 	public ?string $eventView;
@@ -37,7 +38,7 @@ class Calendax extends Component
 		'gridEndsAt' => 'date',
 	];
 
-	public function mount($initialYear = null, $initialMonth = null, $weekStart = null, $calendarView = null, $dowView = null, $dayView = null, $eventView = null, $dragAndDropClasses = null, $beforeCalendarView = null, $afterCalendarView = null, $pollMillis = null, $pollAction = null, $dragAndDropEnabled = true, $dayClickEnabled = true, $eventClickEnabled = true, $extras = [])
+	public function mount($initialYear = null, $initialMonth = null, $weekStart = null, $calendarView = null, $navView = null, $dowView = null, $dayView = null, $eventView = null, $dragAndDropClasses = null, $beforeCalendarView = null, $afterCalendarView = null, $pollMillis = null, $pollAction = null, $dragAndDropEnabled = true, $dayClickEnabled = true, $eventClickEnabled = true, $extras = [])
 	{
 		// Set initial month & year
 		$initialYear = $initialYear ?? Carbon::today()->year;
@@ -53,7 +54,7 @@ class Calendax extends Component
 		$this->calculateGridBoundaries();
 
 		// Setup views
-		$this->setupViews($calendarView, $dowView, $dayView, $eventView, $beforeCalendarView, $afterCalendarView);
+		$this->setupViews($calendarView, $navView, $dowView, $dayView, $eventView, $beforeCalendarView, $afterCalendarView);
 
 		// Setup polling
 		$this->setupPoll($pollMillis, $pollAction);
@@ -80,9 +81,10 @@ class Calendax extends Component
 		$this->gridEndsAt = $this->endsAt->clone()->endOfWeek($this->weekEnd);
 	}
 
-	public function setupViews($calendarView = null, $dowView = null, $dayView = null, $eventView = null, $beforeCalendarView = null, $afterCalendarView = null)
+	public function setupViews($calendarView = null, $navView = null, $dowView = null, $dayView = null, $eventView = null, $beforeCalendarView = null, $afterCalendarView = null)
 	{
 		$this->calendarView = $calendarView ?? 'calendax::calendar';
+		$this->navView = $navView ?? 'calendax::nav';
 		$this->dowView = $dowView ?? 'calendax::dow';
 		$this->dayView = $dayView ?? 'calendax::day';
 		$this->eventView = $eventView ?? 'calendax::event';

@@ -5,7 +5,13 @@
 [![GitHub Code Style Action Status](https://img.shields.io/github/workflow/status/keysaw/calendax/Pint?label=code%20style)](https://github.com/keysaw/calendax/actions?query=workflow%3A"Pint"+branch%3Amain)
 [![Total Downloads](https://img.shields.io/packagist/dt/keysaw/calendax.svg?style=flat-square)](https://packagist.org/packages/keysaw/calendax)
 
-This package allows you to build a Livewire calendar, filled with events of any kind. Events can be created from any model or dataset.
+> **NOTE**: This package is intended for my own use only, so a few things are very specific to my projects (e.g. importing `.tsx` & `.scss` uncompiled files directly).
+>
+> If anyone is interested in making it easier to set up and more maintainable for a wider audience, please submit a PR or open a discussion!
+>
+> Also, feel free to consider using the package on which this one is based as stated below.
+
+Calendax allows you to build a Livewire calendar, filled with events of any kind. Events can be created from any model or dataset.
 
 It is heavily inspired by Andrés Santibáñez's [Livewire Calendar](https://github.com/asantibanez/livewire-calendar).
 
@@ -30,6 +36,9 @@ It is heavily inspired by Andrés Santibáñez's [Livewire Calendar](https://git
 	* [Custom views](#custom-views)
 	* [Interactivity](#interactivity)
 	* [Automatic polling](#automatic-polling)
+* [Flatpickr](#flatpickr)
+	* [Importing](#importing)
+	* [Customization](#customization)
 * [Testing](#testing)
 
 ## Installation
@@ -296,6 +305,54 @@ You can also combine it with `$pollAction` in order to call a specific action in
 
 To learn more about polling, please check out https://laravel-livewire.com/docs/2.x/polling.
 
+## Flatpickr
+
+To handle navigation between months, this package makes use of the [Flatpickr](https://flatpickr.js.org) library. It displays a calendar picker which is way more powerful than
+simple `<select>`.
+
+### Importing
+
+First, add the Flatpickr library to your `package.json`'s dependencies:
+
+```json
+{
+	"dependencies": {
+		"flatpickr": "^4.6.13"
+	}
+}
+```
+
+Then import this package's `flatpickr.scss` and `flatpickr.tsx` files to you main stylesheet & script.
+
+`app.scss`:
+
+```scss
+@use '../vendor/brickx/calendax/resources/sass/flatpickr';
+```
+
+`app.js`:
+
+```tsx
+import calendax from '../../../vendor/brickx/calendax/resources/scripts/flatpickr';
+
+calendax();
+```
+
+### Usage
+
+### Customization
+
+You can customize the colors of the calendar picker to match your theme. To do so, simply override the Sass variables when importing `flatpickr.scss`:
+
+```scss
+@use '../vendor/brickx/calendax/resources/sass/flatpickr' with (
+	$color-primary: saddlebrown,			// Basic color
+	$color-accent: #FDBA74,				// Standard CSS color
+	$color-contrast: rgb(118, 89, 71, 0.8),		// RGB color
+	$color-range: theme('colors.orange.100')	// Tailwind theme color
+);
+```
+
 ## Testing
 
 You can test the component using `Pest` by running the following commands, depending on your needs.
@@ -326,8 +383,13 @@ composer test:parallel-coverage
 
 ## Todo
 
-- [ ] Add default navigation, ideally using a dynamic calendar picker (instead of basic `<select>`).
+- [ ] Ideally, users should not have to mess with their sass & script files in order to import the proper dependencies. Everything should be done inside Blade (at the very
+  least importing styles & script directly in Blade layout). See: https://github.com/Laratipsofficial/laravel-flatpickr.
+- [ ] Create tests for Flatpickr component
+- [ ] Find a way to highlight events in Flatpickr component (so that users see immediately which days have events).
 - [ ] Handle Shields properly in README.md. Check out: https://shields.io/.
+- [X] ~~Update README.md for how to properly setup Flatpickr component~~
+- [X] ~~Add default navigation, ideally using a dynamic calendar picker (instead of basic `<select>`).~~
 
 ## Changelog
 

@@ -3,6 +3,7 @@
 namespace Brickx\Calendax;
 
 use Brickx\Calendax\Commands\CalendaxCommand;
+use Brickx\Calendax\Components\Flatpickr;
 use Illuminate\Support\Facades\Blade;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
@@ -14,11 +15,14 @@ class CalendaxServiceProvider extends PackageServiceProvider
 		$package->name('calendax')
 			->hasConfigFile()
 			->hasViews()
+			->hasViewComponent('calendax', Flatpickr::class)
 			->hasCommand(CalendaxCommand::class);
 	}
 
 	public function bootingPackage()
 	{
+		Blade::componentNamespace('Brickx\\Calendax\\Components', 'calendax');
+
 		Blade::directive('calendaxScripts', function () {
 			return <<<'HTML'
             <script>
