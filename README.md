@@ -338,8 +338,6 @@ import calendax from '../../../vendor/brickx/calendax/resources/scripts/flatpick
 calendax();
 ```
 
-### Usage
-
 ### Customization
 
 You can customize the colors of the calendar picker to match your theme. To do so, simply override the Sass variables when importing `flatpickr.scss`:
@@ -385,9 +383,9 @@ composer test:parallel-coverage
 
 - [ ] Ideally, users should not have to mess with their sass & script files in order to import the proper dependencies. Everything should be done inside Blade (at the very
   least importing styles & script directly in Blade layout). See: https://github.com/Laratipsofficial/laravel-flatpickr.
-- [ ] Create tests for Flatpickr component
 - [ ] Find a way to highlight events in Flatpickr component (so that users see immediately which days have events).
 - [ ] Handle Shields properly in README.md. Check out: https://shields.io/.
+- [X] ~~Create tests for Flatpickr component~~
 - [X] ~~Update README.md for how to properly setup Flatpickr component~~
 - [X] ~~Add default navigation, ideally using a dynamic calendar picker (instead of basic `<select>`).~~
 

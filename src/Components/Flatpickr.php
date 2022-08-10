@@ -14,7 +14,7 @@ class Flatpickr extends Component
 	/**
 	 * @throws Exception
 	 */
-	public function __construct(public string|int|null $id = null, public bool $multiple = false, public bool $range = false, public ?int $visibleMonths = null, public bool $disableWeekend = false, public bool $showTime = false, public bool $time24hr = true, public string $dateFormat = 'd/m/Y', public string $timeFormat = 'H:i', public array $enable = [], public array $disable = [], public string|Carbon|null $minDate = null, public string|Carbon|null $maxDate = null, public string|null $minTime = null, public string|null $maxTime = null, public string|array|Carbon|null $value = null, public bool $clearable = false)
+	public function __construct(public string|int|null $id = null, public bool $multiple = false, public bool $range = false, public ?int $visibleMonths = null, public bool $disableWeekend = false, public bool $showTime = false, public bool $time24hr = true, public string $dateFormat = 'd/m/Y', public string $timeFormat = 'H:i', public ?string $userFormat = null, public array $enable = [], public array $disable = [], public string|Carbon|null $minDate = null, public string|Carbon|null $maxDate = null, public string|null $minTime = null, public string|null $maxTime = null, public string|array|Carbon|null $value = null, public bool $clearable = false)
 	{
 		// Generate a random ID if none was provided
 		$this->id = $this->id ?: Str::random();
@@ -40,8 +40,8 @@ class Flatpickr extends Component
 			'time_24hr' => $this->time24hr(),
 			'dateFormat' => $this->dateFormat(),
 			// TOFIX: This breaks the calendar, loading the page indefinitely...
-			/*'altInput' => true,
-			'altFormat' => $this->userFormat ?: $this->dateFormat(),*/
+			/*'altInput' => true,*/
+			'altFormat' => $this->userFormat ?: $this->dateFormat(),
 			'enable' => count($this->enable) > 0 ? $this->enable() : null,
 			'disable' => $this->disable(),
 			'minDate' => $this->minDate(),
@@ -152,7 +152,7 @@ class Flatpickr extends Component
 		switch ($this->mode()) {
 			case 'multiple':
 				if (!is_array($this->value)) {
-					throw new Exception('The value must be an array of dates or Carbon instances when "multiple" is set.');
+					throw new Exception('The value must be an array of dates or Carbon instances when \'multiple\' is set.');
 				}
 
 				break;
@@ -160,18 +160,18 @@ class Flatpickr extends Component
 			case 'range':
 				if (is_array($this->value)) {
 					if (count($this->value) !== 2) {
-						throw new Exception('The value must be an array with only 2 dates when "range" is set.');
+						throw new Exception('The value must be an array with only 2 dates when \'range\' is set.');
 					}
 
 					return;
 				}
 
 				if (!is_string($this->value)) {
-					throw new Exception('The value must be a string when "range" is set.');
+					throw new Exception('The value must be a string when \'range\' is set.');
 				}
 
 				if (!Str::contains($this->value, ' to ')) {
-					throw new Exception('The two dates must be a string, and be separated by "to" when "range" is set.');
+					throw new Exception('The two dates must be a string, and be separated by "to" when \'range\' is set.');
 				}
 
 				break;
