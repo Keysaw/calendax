@@ -3,6 +3,8 @@
 		@includeIf($beforeCalendarView)
 	</div>
 
+	@include($navView)
+
 	<div class='flex'>
 		<div class='w-full overflow-x-auto rounded-lg border'>
 			<div class='flex w-full flex-row border-inherit'>

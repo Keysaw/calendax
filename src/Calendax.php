@@ -19,6 +19,7 @@ class Calendax extends Component
 	public Carbon $gridStartsAt;
 	public Carbon $gridEndsAt;
 	public ?string $calendarView;
+	public ?string $navView;
 	public ?string $dowView;
 	public ?string $dayView;
 	public ?string $eventView;
@@ -80,9 +81,10 @@ class Calendax extends Component
 		$this->gridEndsAt = $this->endsAt->clone()->endOfWeek($this->weekEnd);
 	}
 
-	public function setupViews($calendarView = null, $dowView = null, $dayView = null, $eventView = null, $beforeCalendarView = null, $afterCalendarView = null)
+	public function setupViews($calendarView = null, $navView = null, $dowView = null, $dayView = null, $eventView = null, $beforeCalendarView = null, $afterCalendarView = null)
 	{
 		$this->calendarView = $calendarView ?? 'calendax::calendar';
+		$this->navView = $navView ?? 'calendax::nav';
 		$this->dowView = $dowView ?? 'calendax::dow';
 		$this->dayView = $dayView ?? 'calendax::day';
 		$this->eventView = $eventView ?? 'calendax::event';
